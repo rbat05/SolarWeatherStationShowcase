@@ -674,10 +674,13 @@
 
         function getDaysArray(endDateStr, numDays) {
             let dates = [];
-            let d = new Date(endDateStr + "T12:00:00Z");
+            let d = new Date(endDateStr + "T12:00:00");
             for (let i = 0; i < numDays; i++) {
                 let nd = new Date(d.getTime() - i * 24 * 60 * 60 * 1000);
-                dates.push(nd.toISOString().split('T')[0]);
+                const yyyy = nd.getFullYear();
+                const mm = String(nd.getMonth() + 1).padStart(2, '0');
+                const dd = String(nd.getDate()).padStart(2, '0');
+                dates.push(`${yyyy}-${mm}-${dd}`);
             }
             return dates;
         }
@@ -740,7 +743,7 @@
                             pressure: p,
                             battery_voltage: parseFloat(parts[4]),
                             battery_percent: parseFloat(parts[5]),
-                            day_date: dt.toISOString().split('T')[0]
+                            day_date: `${m[3]}-${m[2]}-${m[1]}`
                         });
                     }
                 }
@@ -800,9 +803,9 @@
             }
 
             const simDate = dashboardData.simulated_today;
-            const endDt = new Date(simDate + 'T12:00:00Z');
+            const endDt = new Date(simDate + 'T12:00:00');
             const startDt = new Date(endDt.getTime() - 6 * 24 * 60 * 60 * 1000);
-            const formatStr = (d) => `${d.getUTCDate().toString().padStart(2, '0')}/${(d.getUTCMonth() + 1).toString().padStart(2, '0')}/${d.getUTCFullYear()}`;
+            const formatStr = (d) => `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
             document.getElementById('live-clock').textContent = `${formatStr(startDt)} TO ${formatStr(endDt)}`;
 
             updateSegments(live, dashboardData.charts.week);
@@ -866,7 +869,7 @@
             let html = '';
             for (let day of daysData) {
                 const stats = day.stats;
-                const dt = new Date(day.date + 'T12:00:00Z');
+                const dt = new Date(day.date + 'T12:00:00');
                 const dateLabel = dt.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' }).toUpperCase();
 
                 if (!stats || stats.count === 0) {
