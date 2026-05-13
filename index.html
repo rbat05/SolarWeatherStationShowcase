@@ -28,10 +28,34 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 40px;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             min-height: 100vh;
             color: #e4e2d7;
+        }
+
+        .top-action-btn {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid #333;
+            color: var(--lcd-bg);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-family: var(--font-lcd);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-action-btn:hover {
+            background: #333;
+            color: #fff;
+            border-color: var(--lcd-bg);
+            transform: translateY(-2px);
         }
 
         /* ─── Portfolio Pitch Sidebar ─── */
@@ -576,6 +600,8 @@
 </head>
 
 <body>
+
+    <a href="https://raaghavbatra.com/projects/weather" class="top-action-btn">&lt; BACK TO PORTFOLIO</a>
 
     <div class="portfolio-wrapper">
 
